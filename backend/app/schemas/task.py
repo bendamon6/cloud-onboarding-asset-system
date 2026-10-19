@@ -1,12 +1,21 @@
 from pydantic import BaseModel
 
-class TaskCreate(BaseModel):
-    employee_id: int
+class TaskBase(BaseModel):
+    title: str
     description: str
+    status: str
+    employee_id: int
 
-class TaskOut(TaskCreate):
+class TaskCreate(TaskBase):
+    pass
+
+class TaskUpdate(BaseModel):
+    title: str | None = None
+    description: str | None = None
+    status: str | None = None
+
+class TaskOut(TaskBase):
     id: int
-    completed: bool
 
     class Config:
-        orm_mode = True
+        from_attributes = True

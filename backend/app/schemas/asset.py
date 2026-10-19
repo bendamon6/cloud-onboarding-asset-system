@@ -5,8 +5,11 @@ class AssetCreate(BaseModel):
     type: str
     serial_number: str
 
-class AssetOut(AssetCreate):
+class AssetOut(BaseModel):
     id: int
+    employee_id: int
+    type: str
+    serial_number: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True

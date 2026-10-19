@@ -7,6 +7,9 @@ class EmployeeCreate(BaseModel):
 
 class EmployeeOut(EmployeeCreate):
     id: int
+    name: str
+    role: str
+    start_date: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
