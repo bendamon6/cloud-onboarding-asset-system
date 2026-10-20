@@ -7,6 +7,11 @@ from app.db.base import Base
 from app.services.employee_service import create_test_employees
 
 app = FastAPI(title="Cloud Onboarding & Asset Management System")
+app = FastAPI()
+
+@app.get("/")
+def root():
+    return {"status": "ok", "message": "Cloud Onboarding Asset System API läuft"}
 
 app.add_middleware(
     CORSMiddleware,

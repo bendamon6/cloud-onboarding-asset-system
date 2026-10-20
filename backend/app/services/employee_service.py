@@ -8,7 +8,7 @@ def get_employees(db: Session):
     return db.query(Employee).all()
 
 def create_employee(db: Session, employee_data):
-    employee = Employee(**employee_data)
+    employee = Employee(**employee_data.model_dump())
     db.add(employee)
     db.commit()
     db.refresh(employee)

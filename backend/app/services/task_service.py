@@ -11,7 +11,7 @@ def get_task(db: Session, task_id: int):
     return db.query(Task).filter(Task.id == task_id).first()
 
 def create_task(db: Session, data):
-    task = Task(**data.dict())
+    task = Task(**data.model_dump())
     db.add(task)
     db.commit()
     db.refresh(task)
@@ -22,7 +22,7 @@ def update_task(db: Session, task_id: int, data):
     if not task:
         return None
 
-    for key, value in data.dict(exclude_unset=True).items():
+    for key, value in data.model_dump(exclude_unset=True).items():
         setattr(task, key, value)
 
     db.commit()
@@ -43,7 +43,9 @@ def complete_task(db: Session, task_id: int):
     if not task:
         return None
 
+    # Konsistente Statusänderung
     task.status = "completed"
+
     db.commit()
     db.refresh(task)
     return task

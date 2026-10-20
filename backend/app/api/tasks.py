@@ -60,8 +60,8 @@ def delete_existing_task(task_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Task not found")
     return {"status": "deleted"}
 
-# COMPLETE task
-@router.post("/{task_id}/complete", response_model=TaskOut)
+# COMPLETE task (korrekt integriert)
+@router.put("/{task_id}/complete", response_model=TaskOut)
 def complete(task_id: int, db: Session = Depends(get_db)):
     task = complete_task(db, task_id)
     if not task:
