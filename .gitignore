@@ -1,0 +1,6 @@
+.DS_Store
+cloud-onboarding.code-workspace
+venv/
+.venv/
+__pycache__/
+
