@@ -1,5 +1,4 @@
 from sqlalchemy import Column, Integer, String
-from sqlalchemy.orm import relationship
 from app.db.base import Base
 
 class Employee(Base):
@@ -7,7 +6,5 @@ class Employee(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, nullable=False)
-    role = Column(String, nullable=True)
-    start_date = Column(String, nullable=True)
-
-    tasks = relationship("Task", back_populates="employee")
+    email = Column(String, nullable=False)
+    department = Column(String, nullable=False)

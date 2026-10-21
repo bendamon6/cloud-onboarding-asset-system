@@ -11,7 +11,12 @@ export default function EmployeeList() {
   const [editingEmployee, setEditingEmployee] = useState(null);
 
   const loadEmployees = () => {
-    getEmployees().then((res) => setEmployees(res.data));
+    getEmployees()
+      .then((res) => setEmployees(res))
+      .catch((error) => {
+        console.error("Failed to load employees:", error);
+        setEmployees([]);   // ← verhindert weißen Bildschirm
+      });
   };
 
   useEffect(() => {
@@ -27,7 +32,7 @@ export default function EmployeeList() {
       <ul>
         {employees.map((e) => (
           <li key={e.id} style={{ marginBottom: "10px" }}>
-            <strong>{e.first_name} {e.last_name}</strong> – {e.email}
+            <strong>{e.name}</strong> – {e.email}
 
             <button
               style={{ marginLeft: "10px" }}

@@ -3,64 +3,46 @@ import { createEmployee } from "../api/employees";
 
 export default function EmployeeCreateForm({ onCreated }) {
   const [form, setForm] = useState({
-    first_name: "",
-    last_name: "",
+    name: "",
     email: "",
-    department: "",
+    department: ""
   });
 
-  const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
-  };
+  function handleChange(e) {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  }
 
-  const handleSubmit = async (e) => {
+  // onCreate() wird an EmployeeList.jsx übergeben
+  // nach dem Speichern wird die LIste automatisch aktualisiert
+  // das Formular wird zurückgesetzt
+  async function handleSubmit(e) {
     e.preventDefault();
-    await createEmployee(form);
-    setForm({
-      first_name: "",
-      last_name: "",
-      email: "",
-      department: "",
-    });
-    onCreated(); // Liste neu laden
-  };
+    const newEmployee = await createEmployee(form);
+    onCreated(newEmployee);   // Liste aktualisieren
+    setForm({ name: "", email: "", department: "" });
+  }
 
   return (
     <form onSubmit={handleSubmit} style={{ marginBottom: "20px" }}>
       <input
-        name="first_name"
-        placeholder="Vorname"
-        value={form.first_name}
+        name="name"
+        placeholder="Name"
+        value={form.name}
         onChange={handleChange}
-        required
-      />
-      <input
-        name="last_name"
-        placeholder="Nachname"
-        value={form.last_name}
-        onChange={handleChange}
-        required
       />
       <input
         name="email"
         placeholder="Email"
         value={form.email}
         onChange={handleChange}
-        required
       />
       <input
         name="department"
-        placeholder="Abteilung"
+        placeholder="Department"
         value={form.department}
         onChange={handleChange}
       />
-
-      <button type="submit" style={{ marginLeft: "10px" }}>
-        Mitarbeiter anlegen
-      </button>
+      <button type="submit">Mitarbeiter anlegen</button>
     </form>
   );
 }

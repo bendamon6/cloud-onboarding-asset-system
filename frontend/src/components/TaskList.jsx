@@ -9,7 +9,7 @@ export default function TaskList() {
 
   const loadTasks = () => {
     getTasks()
-      .then((res) => setTasks(res.data))
+      .then((res) => setTasks(res))
       .catch(() => setTasks([]));
   };
 

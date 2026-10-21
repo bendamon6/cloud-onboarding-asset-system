@@ -1,17 +1,21 @@
 import client from "./client";
 
-export function getEmployees() {
-  return client.get("/employees");
+export async function getEmployees() {
+  const response = await client.get("/employees/");
+  return response.data;
 }
 
-export function createEmployee(data) {
-  return client.post("/employees", data);
+export async function createEmployee(employee) {
+  const response = await client.post("/employees/", employee);
+  return response.data;
 }
 
-export function updateEmployee(id, data) {
-  return client.put(`/employees/${id}`, data);
+export async function deleteEmployee(id) {
+  const response = await client.delete(`/employees/${id}`);
+  return response.data;
 }
 
-export function deleteEmployee(id) {
-  return client.delete(`/employees/${id}`);
+export async function updateEmployee(id, data) {
+  const response = await client.put(`/employees/${id}`, data);
+  return response.data;
 }

@@ -6,8 +6,10 @@ class TaskBase(BaseModel):
     status: str
     employee_id: int
 
-class TaskCreate(TaskBase):
-    pass
+class TaskCreate(BaseModel):
+    title: str
+    description: str | None = None
+
 
 class TaskUpdate(BaseModel):
     title: str | None = None

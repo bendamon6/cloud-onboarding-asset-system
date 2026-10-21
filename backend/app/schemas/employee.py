@@ -2,14 +2,15 @@ from pydantic import BaseModel
 
 class EmployeeCreate(BaseModel):
     name: str
-    role: str
-    start_date: str
+    email: str
+    department: str
 
-class EmployeeOut(EmployeeCreate):
+class EmployeeOut(BaseModel):
     id: int
     name: str
-    role: str
-    start_date: str
+    email: str
+    department: str
 
-    class Config:
-        from_attributes = True
+    model_config = {
+        "from_attributes": True
+    }
